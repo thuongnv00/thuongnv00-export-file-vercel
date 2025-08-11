@@ -1,6 +1,5 @@
 import { useGenFile } from "@/app/genfileApi";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 
 interface FormValues {
   name: string;
@@ -26,7 +25,6 @@ export default function GenFile() {
                 reset();
             },
             onError: () => {
-                toast.error("fail");
             }
         });
     };
