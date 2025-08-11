@@ -8,7 +8,7 @@ import CheckIcon from "@mui/icons-material/Check";
 interface FormValues {
   name: string;
   date: string;
-  email: string;
+  toEmail: string;
 }
 
 export default function Home() {
@@ -16,15 +16,22 @@ export default function Home() {
     defaultValues: {
       name: "",
       date: "",
-      email: "",
+      toEmail: "",
     },
   });
   const genFileMutation = useGenFile();
+   if (genFileMutation.isSuccess) {
+    console.log("Mutation thành công!", genFileMutation.data);
+  }
+  if (genFileMutation.isError) {
+    console.log("Mutation thất bại!", genFileMutation.data);
+  }
 
   const onSubmit = (values: FormValues) => {
-    console.log("Form values:", values);
+    // console.log("Form values:", values);
     genFileMutation.mutate(values, {
       onSuccess: (data) => {
+        console.log("File generated successfully:", data);
         reset();
       },
     });
@@ -60,7 +67,7 @@ export default function Home() {
           </div>
           <div className="flex flex-col gap-4">
             <label className="font-medium">Email</label>
-            <input {...register("email")} type="email" placeholder="Nhập email" className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input {...register("toEmail")} type="email" placeholder="Nhập email" className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
           </div>
           <button type="submit" className="mt-4 bg-blue-600 text-white rounded px-4 py-2 font-semibold hover:bg-blue-700 transition-colors cursor-pointer">
             {genFileMutation.isPending ? "Đang gửi..." : "Send"}
@@ -68,6 +75,13 @@ export default function Home() {
         </fieldset>
       </form>
 
+      {genFileMutation.isSuccess && (
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+          <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+            Gửi mail thành công
+          </Alert>
+        </div>
+      )}
       {genFileMutation.isError && (
         <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
           <Alert icon={<CheckIcon fontSize="inherit" />} severity="error">
