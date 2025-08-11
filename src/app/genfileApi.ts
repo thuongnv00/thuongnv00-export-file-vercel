@@ -9,7 +9,7 @@ export type GenFileParams = {
 export function useGenFile() {
   return useMutation({
     mutationFn: async (params: GenFileParams) => {
-      const res = await fetch('http://localhost:8081/api/doc/sendMail', {
+      const res = await fetch('https://34ac503b8ae0.ngrok-free.app/api/doc/sendMail', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
