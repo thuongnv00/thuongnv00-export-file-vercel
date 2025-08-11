@@ -85,7 +85,7 @@ export default function Home() {
       {genFileMutation.isError && (
         <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
           <Alert icon={<CheckIcon fontSize="inherit" />} severity="error">
-            Lỗi không gửi được mail
+            {genFileMutation.isError }
           </Alert>
         </div>
       )}
